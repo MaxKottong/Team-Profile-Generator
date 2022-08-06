@@ -1,10 +1,15 @@
-const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
 
+var manager;
+var employees = [];
+
 function generateHtml() {
+
+    var employeeHtml = employees.forEach(employee => employee.generateHtml());
+
     return `
 <!DOCTYPE html>
 
@@ -16,10 +21,59 @@ function generateHtml() {
     <link rel="stylesheet" href="./dist/style.css" />
 </head>
 <body>
-    Hello There
+    <div>` + employeeHtml + `</div>
 </body>
 </html>
 `
+}
+
+function addEmployee(role, id) {
+
+    //Ask all employee only questions
+    var name;
+    inquirer
+        .prompt({
+            name: 'What is the name?',
+            id: 'What is the id?',
+            email: 'What is the email?',
+            github: 'What is the github?'
+        })
+        .then(({ nameVar }) => {
+            name = nameVar;
+        });
+
+    var email;
+    //Ask email inquirer
+
+    var employee;
+
+    //Ask role based questions
+    switch (role) {
+        case 'Engineer':
+            inquirer
+                .prompt({
+                    type: 'input',
+                    name: 'github',
+                    message: 'What is their GitHub username?'
+                })
+                .then(({ github }) => {
+                    employee = new Engineer(name, id, email, github);
+                });
+            break;
+        case 'Intern':
+            inquirer
+                .prompt({
+                    type: 'input',
+                    name: 'school',
+                    message: 'What is their school?'
+                })
+                .then(({ school }) => {
+                    employee = new Intern(name, id, email, school);
+                });
+            break;
+    }
+
+    employees.push(employee);
 }
 
 function writeToFile() {
@@ -39,7 +93,24 @@ function writeToFile() {
 };
 
 function init() {
-    new Employee()
+    addManager();
+
+    for (var i = 2; i <= 10; i++) {
+        inquirer
+            .prompt({
+                type: 'list',
+                name: 'role',
+                message: 'What type of employee would you like to add?',
+                choices: ['Engineer', 'Intern', 'None']
+            })
+            .then(({ role }) => {
+                if (role === 'None') {
+                    return generateHtml();
+                } else {
+                    addEmployee(role, i);
+                }
+            })
+    }
 }
 
 init();
