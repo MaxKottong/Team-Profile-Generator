@@ -7,25 +7,8 @@ const emailValidator = require('email-validator');
 var manager;
 var employees = [];
 
-function generateHtml() {
+function addManager() {
 
-    var employeeHtml = employees.forEach(employee => employee.generateHtml());
-
-    return `
-<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Team Portfolio Generator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./dist/style.css" />
-</head>
-<body>
-    <div>` + employeeHtml + `</div>
-</body>
-</html>
-`
 }
 
 function addEmployee(role, id) {
