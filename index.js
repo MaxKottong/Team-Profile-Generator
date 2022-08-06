@@ -2,6 +2,7 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
+const emailValidator = require('email-validator');
 
 var manager;
 var employees = [];
@@ -32,12 +33,40 @@ function addEmployee(role, id) {
     //Ask all employee only questions
     var name;
     inquirer
-        .prompt({
-            name: 'What is the name?',
-            id: 'What is the id?',
-            email: 'What is the email?',
-            github: 'What is the github?'
-        })
+        .prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: "What is the employee's name?",
+                validate: nameInput => {
+                    if (!nameInput) {
+                        console.log("Please enter an employee's name")
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: "What is the employee's ID?"
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: "What is the employee's email?",
+                validate: emailInput => {
+                    if (emailValidator.validate(emailInput)) {
+                        return true;
+                    }
+                    else {
+                        console.log('Please enter a valid email address');
+                        return false;
+                    }
+                }
+            }
+        ])
         .then(({ nameVar }) => {
             name = nameVar;
         });
@@ -65,7 +94,7 @@ function addEmployee(role, id) {
                 .prompt({
                     type: 'input',
                     name: 'school',
-                    message: 'What is their school?'
+                    message: 'What is the interns school?'
                 })
                 .then(({ school }) => {
                     employee = new Intern(name, id, email, school);
