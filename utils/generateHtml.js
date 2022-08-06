@@ -9,7 +9,7 @@ function generateHtml(employeeArr) {
     employees.forEach(employee => employeeCards += generateCard(employee));
 
     return `
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
