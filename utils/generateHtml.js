@@ -1,8 +1,43 @@
-function generateCard() {
+function generateCard(employee) {
 
+    let additionalInfo = '';
+    let iconInfo = '';
+    let role = employee.getRole();
+    let email = employee.getEmail();
+
+    switch (role) {
+        case "Manager":
+            iconInfo = `oi-briefcase`;
+            additionalInfo = `<p class="card-text">Office Number: ${employee.getOfficeNumber()}</p>`;
+            break;
+        case "Engineer":
+            iconInfo = `oi-wrench`;
+            github = employee.getGithub();
+            additionalInfo = `<p class="card-text">Github: <a href="https://github.com/${github}" target="_blank">${github}</a></p>`;
+            break;
+        case "Intern":
+            iconInfo = `oi-book`;
+            additionalInfo = `<p class="card-text">School: ${employee.getSchool()}</p>`;
+            break;
+    }
+
+    let card = `
+        <div class="card mt-10 shadow" style="width: 18rem;">
+        <div class="card-img-top bg-warning">
+            <h3 class="p-10">${employee.getName()}</h3>
+            <h5 class="p-10"><span class="oi ${iconInfo}"></span>  ${role}</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">ID: ${employee.getId()}</p>
+            <p class="card-text">Email: <a href="mailto:${email}">${email}</a><p>
+            ${additionalInfo}
+        </div>
+        </div>`;
+
+    return card;
 }
 
-function generateHtml(employeeArr) {
+function generateHtml(employees) {
 
     let employeeCards = '';
 
@@ -27,7 +62,6 @@ function generateHtml(employeeArr) {
     </header>
     <main class="container mt-10 p-10 d-flex flex-wrap justify-content-sm-center">
         ${employeeCards}
-          
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -108,14 +108,14 @@ const addEmployee = (employees=[]) => {
             },
             {
                 type: 'confirm',
-                name: 'addMember',
+                name: 'isAddAnotherMember',
                 message: 'Would you like to add another team member?',
                 default: false
             }
         ])
         .then(employeeData => {
             employees.push(employeeData);
-            return employeeData.addMember ? addEmployee(employees) : employees;
+            return employeeData.isAddAnotherMember ? addEmployee(employees) : employees;
         })
 }
 
