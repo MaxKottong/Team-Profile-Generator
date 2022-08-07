@@ -42,6 +42,10 @@ const addManager = () => {
                 message: 'What is your office number?'
             }
         ])
+        .then(employeeData => {
+            employeeData['role'] = 'Manager';
+            return employeeData;
+        })
 }
 
 const addEmployee = (employees=[]) => {
@@ -54,7 +58,7 @@ const addEmployee = (employees=[]) => {
             },
             {
                 type: 'list',
-                name: 'teamMemberRole',
+                name: 'role',
                 choices: ['Engineer', 'Intern'],
                 message: "What is the employee's role",
             },
@@ -104,11 +108,15 @@ const addEmployee = (employees=[]) => {
             },
             {
                 type: 'confirm',
-                name: 'addTeamMember',
+                name: 'addMember',
                 message: 'Would you like to add another team member?',
                 default: false
             }
         ])
+        .then(employeeData => {
+            employees.push(employeeData);
+            return employeeData.addMember ? addEmployee(employees) : employees;
+        })
 }
 
 module.exports = { addManager, addEmployee };
