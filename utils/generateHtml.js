@@ -2,8 +2,8 @@ function generateCard(employee) {
 
     let additionalInfo = '';
     let iconInfo = '';
-    let role = employee.getRole();
     let email = employee.getEmail();
+    let role = employee.getRole();
 
     switch (role) {
         case "Manager":
@@ -43,7 +43,7 @@ function generateHtml(employees) {
 
     employees.forEach(employee => employeeCards += generateCard(employee));
 
-    return `
+    let html =  `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +53,7 @@ function generateHtml(employees) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha512-UyNhw5RNpQaCai2EdC+Js0QL4RlVmiq41DkmCJsRV3ZxipG2L0HhTqIf/H9Hp8ez2EnFlkBnjRGJU2stW3Lj+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!--Will need to be updated to best practice path-->
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <title>Get to know your Team!</title>
 </head>
 <body>
@@ -67,7 +67,9 @@ function generateHtml(employees) {
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </body>
 </html>    
-    `
+    `;
+
+    return html;
 }
 
 module.exports = generateHtml;
