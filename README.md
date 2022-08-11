@@ -10,7 +10,7 @@ and when done will automatically create an HTML file containing all of the infor
 ## Usage
 `npm index.js`
 Index.html and stylesheet will be in the ./dist directory.
-See [Demo Video](https://www.youtube.com/)
+See [Demo Video](https://www.youtube.com/watch?v=zf-nQ_Rm2Qc)
 
 ## Tests
 `npm run test`
