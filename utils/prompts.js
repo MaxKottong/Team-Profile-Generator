@@ -54,7 +54,6 @@ const addManager = () => {
 }
 
 const addEmployee = (employees = []) => {
-    console.log("Now please add as many employees to the team as you would like.");
     return inquirer
         .prompt([
             {
